@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Page</title>
+
+  <style>
+    /* Sabhi cheezon ka default gap hatane ke liye */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 50px;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
+
+    /* ---------- Sabse upar PORTFOLIO PAGE heading ---------- */
+    .page-title {
+      font-family: "Times New Roman", serif;
+      text-align: center;
+      font-size: 26px;
+      padding: 25px 0;
+    }
+
+    /* ---------- Poore page ke bahar black border ---------- */
+    .page-border {
+      border: 1px solid black;
+      margin: 0 20px;
+    }
+
+    /* ---------- Navbar ---------- */
+    .navbar {
+      background-color: #1b3358;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 8%;
+      height: 45px;
+    }
+
+    /* main-nav = asli nav, sticky hai: scroll karne par upar chipka rehta hai */
+    .main-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    /* print-nav = sirf PDF/print ke liye extra nav, screen par chhupa rehta hai */
+    .print-nav {
+      display: none;
+    }
+
+    .logo {
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 22px;
+      height: 45px;
+    }
+
+    .navbar a {
+      display: block;
+      height: 45px;
+      line-height: 43px;
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      border-bottom-color: white;
+    }
+
+    /* ---------- Home (Hero) ---------- */
+    .hero {
+      background-color: #223d63;
+      color: white;
+      height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero h1 {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      background-color: #e63946;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      border-radius: 25px;
+      font-size: 12px;
+      cursor: pointer;
+      text-decoration: none;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ---------- Common section style ---------- */
+    section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    section h2 {
+      color: #1b3358;
+      font-size: 20px;
+      margin-bottom: 25px;
+    }
+
+    /* ---------- About ---------- */
+    #about {
+      background-color: #f4f5f9;
+    }
+
+    .about-box {
+      background-color: white;
+      max-width: 420px;
+      margin: auto;
+      padding: 18px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    /* ---------- Skills ---------- */
+    .skills-box {
+      max-width: 360px;
+      margin: auto;
+      text-align: left;
+    }
+
+    .skill-name {
+      font-weight: bold;
+      font-size: 12px;
+      margin-bottom: 5px;
+      margin-top: 15px;
+    }
+
+    .bar {
+      background-color: #dde3ec;
+      height: 12px;
+      border-radius: 10px;
+    }
+
+    .fill {
+      background-color: #447a9e;
+      height: 12px;
+      border-radius: 10px;
+    }
+
+    /* Har skill ki width yaha se change hoti hai */
+    .html   { width: 100%; }
+    .css    { width: 90%; }
+    .js     { width: 15%; }
+    .python { width: 85%; }
+
+    /* ---------- Projects ---------- */
+    #projects {
+      background-color: #f4f5f9;
+    }
+
+    /* nowrap = teeno cards hamesha ek hi line mein rahenge */
+    .cards {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .card {
+      background-color: white;
+      flex: 1;
+      max-width: 190px;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card-top {
+      height: 70px;
+      color: white;
+      font-size: 28px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .blue   { background-color: #447a9e; }
+    .green  { background-color: #2a9d8f; }
+    .orange { background-color: #e76f51; }
+
+    .card-body {
+      padding: 12px;
+    }
+
+    .card-body h3 {
+      color: #1b3358;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .card-body p {
+      font-size: 11px;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    /* ---------- Contact ---------- */
+    .contact-form {
+      max-width: 280px;
+      margin: auto;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 8px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      font-size: 11px;
+      font-family: Arial, sans-serif;
+    }
+
+    .contact-form textarea {
+      height: 80px;
+    }
+
+    .contact-form .btn {
+      width: 100%;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      background-color: #1b3358;
+      color: white;
+      text-align: center;
+      padding: 18px;
+      font-size: 11px;
+    }
+
+    /* ---------- Print / PDF ke liye (Ctrl+P) ---------- */
+    @page {
+      margin: 12mm;
+    }
+
+    @media print {
+      /* Print mein bhi saare colors aayenge */
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      /* Print mein sticky band, nav apni jagah par rahega */
+      .main-nav {
+        position: static;
+      }
+
+      /* Extra nav print mein dikhenge: About, Projects aur Contact ke upar */
+      .print-nav {
+        display: flex;
+      }
+
+      /* Print mein thodi si jagah kam, taaki Letter aur A4 dono mein 2 hi page bane */
+      .hero {
+        height: 260px;
+      }
+
+      .page-title {
+        padding: 12px 0;
+      }
+
+      section {
+        padding: 30px 20px;
+      }
+
+      /* Underline sirf pehle nav mein Home par rahegi */
+      .navbar a.active {
+        border-bottom-color: transparent;
+      }
+
+      .main-nav a[href="#home"] {
+        border-bottom-color: white;
+      }
+
+      /* Projects wala nav naye page (page 2) se shuru hoga */
+      .page-break {
+        break-before: page;
+      }
+
+      .card:hover {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sabse upar heading -->
+  <h1 class="page-title">PORTFOLIO PAGE</h1>
+
+  <!-- Ye div poore page ko black border ke andar rakhta hai -->
+  <div class="page-border">
+
+    <!-- Asli Navbar (scroll karne par saath chalta hai) -->
+    <div class="navbar main-nav">
+      <div class="logo"> My Portfolio</div>
+      <ul>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Home -->
+    <div class="hero" id="home">
+      <h1>Hi, I'm ANSH SINGH</h1>
+      <p>B.Tech (Computer Engineering and Application) | Web Developer (HTML, CSS, JS)</p>
+      <a href="#contact" class="btn">Contact Me</a>
+    </div>
+
+    <!-- Print wala nav (About ke upar) -->
+    <div class="navbar print-nav">
+      <div class="logo">MyPortfolio</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- About Me -->
+    <section id="about">
+      <h2>About Me</h2>
+      <div class="about-box">
+        I am a B.Tech student interested in Web Development and AI/ML. I have basic knowledge of HTML and CSS and I am currently learning more about web development.
+      </div>
+    </section>
+
+    <!-- My Skills -->
+    <section id="skills">
+      <h2>My Skills</h2>
+      <div class="skills-box">
+
+        <div class="skill-name">HTML</div>
+        <div class="bar"><div class="fill html"></div></div>
+
+        <div class="skill-name">CSS</div>
+        <div class="bar"><div class="fill css"></div></div>
+
+        <div class="skill-name">JavaScript</div>
+        <div class="bar"><div class="fill js"></div></div>
+
+        <div class="skill-name">Python</div>
+        <div class="bar"><div class="fill python"></div></div>
+
+      </div>
+    </section>
+
+    <!-- Print wala nav (Projects ke upar, naya page yahin se shuru) -->
+    <div class="navbar print-nav page-break">
+      <div class="logo">MyPortfolio</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- My Projects -->
+    <section id="projects">
+      <h2>My Projects</h2>
+      <div class="cards">
+
+        <div class="card">
+          <div class="card-top blue">!</div>
+          <div class="card-body">
+            <h3>My Favourite Cricketer</h3>
+            <p>Used HTML and CSS to create a simple webpage about my favourite cricketer.</p>
+            <button class="btn">View</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top green">^</div>
+          <div class="card-body">
+            <h3>Movie Ticket Booking Form</h3>
+            <p>Used HTML and CSS to create a simple movie ticket booking form with a movie poster.</p>
+            <button class="btn">View</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top orange">**</div>
+          <div class="card-body">
+            <h3>Portfolio Website</h3>
+            <p>Used HTML, CSS and Flexbox to create and arrange the website layout.</p>
+            <button class="btn">View</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Print wala nav (Contact ke upar) -->
+    <div class="navbar print-nav">
+      <div class="logo">MyPortfolio</div>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Me -->
+    <section id="contact">
+      <h2>Contact Me</h2>
+      <div class="contact-form">
+        <input type="text" placeholder="Your name">
+        <input type="email" placeholder="Your email">
+        <textarea placeholder="Your message"></textarea>
+        <button class="btn">Send message</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      © 2026 ANSH SINGH IST. All rights reserved.
+    </footer>
+
+  </div>
+
+  <script>
+    // Scroll karte time jo section dikh raha hai, navbar mein uska link underline hoga
+    var links = document.querySelectorAll(".main-nav a");
+    var sections = document.querySelectorAll("#home, section");
+
+    function setActive() {
+      var current = "home";
+
+      // Konsa section upar tak pahunch gaya hai
+      for (var i = 0; i < sections.length; i++) {
+        if (window.scrollY >= sections[i].offsetTop - 80) {
+          current = sections[i].id;
+        }
+      }
+
+      // Agar page ke bilkul niche pahunch gaye to Contact select karo
+      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 2) {
+        current = "contact";
+      }
+
+      // Pehle sabse underline hatao, phir sahi link pe lagao
+      for (var j = 0; j < links.length; j++) {
+        links[j].classList.remove("active");
+        if (links[j].getAttribute("href") === "#" + current) {
+          links[j].classList.add("active");
+        }
+      }
+    }
+
+    window.addEventListener("scroll", setActive);
+    setActive();
+  </script>
+
+</body>
+</html>
