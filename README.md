@@ -1,8 +1,7 @@
 # My Portfolio
 Personal portfolio website of Ansh Singh, showcasing projects, skills and education.
 
-## Live Demo
-https://anshsingh842.github.io/portfolio/
+
 
 ## Contents
 - `index.html`: the complete portfolio website
